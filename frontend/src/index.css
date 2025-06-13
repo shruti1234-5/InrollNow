@@ -1,0 +1,43 @@
+  body, html {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .swal2-title {
+    font-size: 30px !important;
+  }
+  
+  .swal2-popup {
+    font-size: 25px !important;
+  }
+  
+  .swal2-confirm {
+    font-size: 18px !important;
+    padding: 5px !important;
+    width: 100px !important;
+    border-radius: 15px !important;
+    height: 50px !important;
+  }
+  
+  .dashboard-footer {
+    width: calc(100% - 280px);
+    left: 280px;
+  }
+  
+  @media (max-width: 768px) {
+    .dashboard-footer {
+      width: 100%;
+      left: 0;
+    }
+  }
+  
+
+  .razorpay-container {
+    position: fixed;
+    z-index: 9999;
+  }
+  
+  .razorpay-checkout-frame {
+    position: relative;
+    z-index: 10000;
+  }
