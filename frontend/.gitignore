@@ -15,6 +15,7 @@ dist/
 dist-ssr/
 
 # Environment files
+.env
 **.env**             # <-- Add this
 **.env.*.local**     # <-- And this
 
