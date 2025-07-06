@@ -12,10 +12,27 @@
   "routes": [
     {
       "src": "/assets/(.*)",
-      "dest": "/assets/$1"
+      "dest": "/assets/$1",
+      "headers": {
+        "Content-Type": "application/javascript"
+      }
     },
     {
-      "src": "/(.*\\.(js|css|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot))",
+      "src": "/(.*\\.js)",
+      "dest": "/$1",
+      "headers": {
+        "Content-Type": "application/javascript"
+      }
+    },
+    {
+      "src": "/(.*\\.css)",
+      "dest": "/$1",
+      "headers": {
+        "Content-Type": "text/css"
+      }
+    },
+    {
+      "src": "/(.*\\.(png|jpg|jpeg|gif|svg|ico))",
       "dest": "/$1"
     },
     {
