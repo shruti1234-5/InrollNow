@@ -13,7 +13,7 @@ RUN npm install
 # Copy the rest of the application
 COPY . .
 
-# Expose the port your app runs on (default is 5000 or 3000)
+# Expose the port your app runs on (matches the backend port)
 EXPOSE 5000
 
 # Command to run the application

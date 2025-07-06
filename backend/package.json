@@ -2,9 +2,14 @@
   "name": "backend",
   "version": "1.0.0",
   "main": "src/index.js",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
   "scripts": {
     "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
+    "dev": "nodemon src/index.js",
+    "build": "echo 'No build step required for Node.js backend'"
   },
   "keywords": [],
   "author": "",

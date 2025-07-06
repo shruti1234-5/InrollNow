@@ -5,6 +5,7 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const path = require('path');
 const passport = require('./config/passport');
+const fs = require('fs');
 require('dotenv').config();
 
 const app = express();
@@ -79,12 +80,19 @@ app.use('/registration', registrationRoutes);
 app.use('/application', applicationRoutes);
 app.use('/payment', paymentRoutes);
 
-// Serve static files in production
+// Serve static files in production (only if frontend dist exists)
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../frontend/dist')));
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
-  });
+  // app.use(express.static(path.join(__dirname, '../frontend/dist')));
+  // app.get('*', (req, res) => {
+  //   res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
+  // });
+  const frontendPath = path.join(__dirname, '../frontend/dist');
+  if (fs.existsSync(frontendPath)) {
+    app.use(express.static(frontendPath));
+    app.get('*', (req, res) => {
+      res.sendFile(path.join(frontendPath, 'index.html'));
+    });
+  }
 }
 
 // Error handling middleware
@@ -114,7 +122,7 @@ const connectWithRetry = async () => {
 
 connectWithRetry();
 
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
 });
