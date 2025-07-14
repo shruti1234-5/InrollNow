@@ -47,15 +47,24 @@ router.post('/register', async (req, res) => {
 
     await newUser.save();
 
-    res.status(201).json({
-      success: true,
-      message: 'Registration successful',
-      user: {
-        name: newUser.name,
-        email: newUser.email,
-        phone: newUser.phone,
-        course: newUser.course,
-      }
+    // Set session for auto-login after registration
+    req.session.user = {
+      _id: newUser._id,
+      email: newUser.email,
+      phone: newUser.phone,
+      isAuthenticated: true
+    };
+    req.session.save(() => {
+      res.status(201).json({
+        success: true,
+        message: 'Registration successful',
+        user: {
+          name: newUser.name,
+          email: newUser.email,
+          phone: newUser.phone,
+          course: newUser.course,
+        }
+      });
     });
   } catch (error) {
     console.error('Registration error:', error);

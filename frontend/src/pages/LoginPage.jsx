@@ -6,12 +6,14 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import Header from '../components/Header';
 import { GraduationCap } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
 
 // Set axios base URL
 axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL;
 
 const LoginPage = () => {
     const navigate = useNavigate();
+    const { login } = useAuth();
 
     const handleGoogleLogin = async (credentialResponse) => {
         try {
@@ -35,10 +37,7 @@ const LoginPage = () => {
                     });
                 } else {
                     // Successful login
-                    localStorage.setItem('userPhone', response.data.user.phone);
-                    localStorage.setItem('userEmail', response.data.user.email);
-                    localStorage.setItem('isAuthenticated', 'true');
-                    
+                    await login(response.data.user);
                     Swal.fire({
                         title: 'Success!',
                         text: 'Login successful!',

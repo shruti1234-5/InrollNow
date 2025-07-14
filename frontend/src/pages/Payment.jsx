@@ -26,7 +26,7 @@ const Payment = () => {
       try {
         const phone = localStorage.getItem('userPhone');
         if (!phone) {
-          navigate('/login');
+          navigate('/register');
           return;
         }
 

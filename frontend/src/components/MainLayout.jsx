@@ -20,9 +20,10 @@ function MainLayout() {
   const [isMobile, setIsMobile] = useState(isRegisterPage ? false : window.innerWidth < 992);
 
   useEffect(() => {
-    // Check auth status when component mounts
     checkAuth();
-  }, [checkAuth]);
+    // Only run on mount
+    // eslint-disable-next-line
+  }, []);
 
   useEffect(() => {
     if (isRegisterPage) return; // Skip event listeners on register page
@@ -66,7 +67,19 @@ function MainLayout() {
           onToggle={handleToggle}
         />
       )}
-      <div className={`flex-grow-1 ${!isRegisterPage ? 'content-wrapper' : ''}`}>
+      <div
+        className={`flex-grow-1 ${!isRegisterPage ? 'content-wrapper' : ''}`}
+        style={
+          !isRegisterPage
+            ? {
+                marginLeft: isMobile ? 0 : 268, // Sidebar width
+                transition: 'margin-left 0.2s',
+                minHeight: '100vh',
+                background: '#f8f9fa',
+              }
+            : { minHeight: '100vh', background: '#f8f9fa' }
+        }
+      >
         <Routes>
           <Route path="/" element={<Navigate to="/register" replace />} />
           <Route path="/register" element={<RegisterPage />} />

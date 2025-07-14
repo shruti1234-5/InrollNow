@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import Header from "../components/Header";
 import { GraduationCap, User, Mail, Lock, Book, Phone, Info } from 'lucide-react';
 import { GoogleLogin } from '@react-oauth/google';
+import { useAuth } from '../context/AuthContext';
 
 // Set axios base URL and default config
 axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL;
@@ -28,6 +29,7 @@ const RegisterPage = () => {
   const [googleId, setGoogleId] = useState('');
 
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   useEffect(() => {
     // Check if we have Google data in URL params
@@ -79,7 +81,8 @@ const RegisterPage = () => {
           timer: 3000,
           timerProgressBar: true
         });
-        navigate('/login');
+        await login(response.data.user);
+        navigate('/dashboard');
       } else {
         throw new Error(response.data.message || 'Registration failed');
       }
@@ -111,11 +114,7 @@ const RegisterPage = () => {
           // User is already registered - log them in and redirect to dashboard
           console.log('User already registered. Logging in and redirecting to dashboard.');
           if (response.data.user) {
-            // Set authentication state using user data from backend response
-            localStorage.setItem('userPhone', response.data.user.phone);
-            localStorage.setItem('userEmail', response.data.user.email);
-            localStorage.setItem('isAuthenticated', 'true');
-            // Redirect to dashboard immediately after setting auth state
+            await login(response.data.user);
             navigate('/dashboard', { replace: true });
           } else {
             // Backend indicated registered but didn't return user info - unexpected
@@ -127,7 +126,7 @@ const RegisterPage = () => {
               timer: 3000,
               timerProgressBar: true
             }).then(() => {
-              navigate('/login', { replace: true });
+              navigate('/register', { replace: true });
             });
           }
         } else { // isRegistered is false - New User

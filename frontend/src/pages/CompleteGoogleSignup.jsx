@@ -27,10 +27,10 @@ const CompleteGoogleSignup = () => {
       try {
         const response = await axios.get(`/auth/check-auth`);
         if (!response.data.isAuthenticated) {
-          navigate('/login');
+          navigate('/register');
         }
       } catch (error) {
-        navigate('/login');
+        navigate('/register');
       }
     };
     checkAuth();

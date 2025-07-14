@@ -86,7 +86,7 @@ router.get('/google/callback', async (req, res) => {
   } catch (error) {
     console.error('Google callback error:', error);
     // Redirect to login with an error parameter
-    return res.redirect(process.env.CLIENT_URL + '/login?error=google_auth_failed');
+    return res.redirect(process.env.CLIENT_URL + '/register?error=google_auth_failed');
     }
 });
 

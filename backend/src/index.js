@@ -33,6 +33,7 @@ const allowedOrigins = process.env.NODE_ENV === 'production'
 
 app.use(cors({
   origin: function(origin, callback) {
+    // Allow requests with no origin (like mobile apps, curl, etc.)
     if (!origin || allowedOrigins.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
@@ -57,9 +58,11 @@ app.use(session({
     ttl: 24 * 60 * 60 // 1 day
   }),
   cookie: {
-    secure: process.env.NODE_ENV === 'production',
     httpOnly: true,
     maxAge: 24 * 60 * 60 * 1000, // 1 day
+    // In production, use secure cookies and sameSite: 'none' for cross-site cookies (required for HTTPS)
+    // In development, use secure: false and sameSite: 'lax' for localhost
+    secure: process.env.NODE_ENV === 'production',
     sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax'
   }
 }));

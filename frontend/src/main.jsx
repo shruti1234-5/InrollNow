@@ -10,6 +10,9 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
+console.log('VITE_GOOGLE_CLIENT_ID at runtime:', GOOGLE_CLIENT_ID);
+console.log('VITE_API_BASE_URL at runtime:', API_BASE_URL);
+
 // Validate required environment variables
 if (!GOOGLE_CLIENT_ID) {
   console.error('VITE_GOOGLE_CLIENT_ID is not set');
@@ -34,7 +37,7 @@ ReactDOM.createRoot(rootElement).render(
   <React.StrictMode>
     <GoogleOAuthProvider 
       clientId={GOOGLE_CLIENT_ID}
-      onScriptLoadSuccess={() => console.log('Google OAuth script loaded successfully')}
+      onScriptLoadSuccess={() => console.log('Google OAuth script loaded successfully with clientId:', GOOGLE_CLIENT_ID)}
       onScriptLoadError={(error) => console.error('Google OAuth script failed to load:', error)}
     >
       <App />

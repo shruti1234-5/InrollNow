@@ -44,7 +44,7 @@ const Step3 = ({ activeStep, setActiveStep }) => {
             timer: 3000,
             timerProgressBar: true
           }).then(() => { 
-            window.location.href = '/login';
+            window.location.href = '/register';
           });
           return;
         }
@@ -180,7 +180,7 @@ const Step3 = ({ activeStep, setActiveStep }) => {
           timer: 3000,
           timerProgressBar: true
         }).then(() => {
-          navigate('/login');
+          navigate('/register');
         });
         setIsSubmitting(false);
         return;

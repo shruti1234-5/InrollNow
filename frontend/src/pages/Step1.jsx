@@ -27,7 +27,7 @@ const Step1 = ({ activeStep, setActiveStep, onStepComplete }) => {
             timer: 3000,
             timerProgressBar: true
           }).then(() => {
-            window.location.href = '/login';
+            window.location.href = '/register';
           });
           return;
         }
